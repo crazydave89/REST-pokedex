@@ -12,6 +12,9 @@ import pl.home.pokedex.model.Pokemon;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/pokedex")
@@ -37,7 +40,7 @@ public class PokedexController {
     }
 
     @GetMapping("/{id}")
-    public Pokemon showPokemon(@PathVariable int id){
+    public Pokemon showPokemonById(@PathVariable int id){
         Pokemon resultPokemon=null;
         for (Pokemon pokemon : pokedex.getPokemon()) {
             if (pokemon.getId()==id){
@@ -45,5 +48,20 @@ public class PokedexController {
             }
         }
         return resultPokemon;
+    }
+
+    @GetMapping("/type-{searchType}")
+    public List<Pokemon> showSpecyficTypeOfPokemons(@PathVariable String searchType){
+
+        List<Pokemon> pokemonList = new ArrayList<>();
+
+        for (Pokemon pokemon : pokedex.getPokemon()) {
+            for (String type : pokemon.getType()) {
+                if ((type.toLowerCase()).equals(searchType)){
+                    pokemonList.add(pokemon);
+                }
+            }
+        }
+        return pokemonList;
     }
 }
