@@ -76,4 +76,12 @@ public class PokedexController {
         return searchedPokemon;
     }
 
+    @GetMapping("/pokemon-{pokemonName}/nextEvo")
+    public Pokemon showNextEvolution(@PathVariable String pokemonName){
+        Pokemon pokemonByName = showPokemonByName(pokemonName);
+        String nextEvoName = pokemonByName.getNext_evolution().get(0).getName();
+        Pokemon nextEvoPokemon = showPokemonByName(nextEvoName);
+        return nextEvoPokemon;
+    }
+
 }
