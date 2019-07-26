@@ -64,4 +64,16 @@ public class PokedexController {
         }
         return pokemonList;
     }
+
+    @GetMapping("/pokemon-{pokemonName}")
+    public Pokemon showPokemonByName(@PathVariable String pokemonName){
+        Pokemon searchedPokemon = new Pokemon();
+        for (Pokemon pokemon : pokedex.getPokemon()) {
+            if ((pokemon.getName().toLowerCase()).equals(pokemonName.toLowerCase())){
+                searchedPokemon=pokemon;
+            }
+        }
+        return searchedPokemon;
+    }
+
 }
